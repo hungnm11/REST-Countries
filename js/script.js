@@ -12,11 +12,12 @@ $(document).ready(function(){
         $(".dropdown-menu li").click(function() {
             var $region = $(this).text();
             var $node = $("#dropdownMenu1").contents().first()[0].nodeValue = $region + " ";
-
+            console.log($region);
             if ($region) {
                 $(".table").find("td:not(:contains(" + $region + "))").parent().slideUp();
                 $(".table").find("td:contains(" + $region + ")").parent().slideDown();
-            }
+            } 
+            
         });
         
         $('.table').after('<div id="nav"><ul class="pagination"></ul></div>');
