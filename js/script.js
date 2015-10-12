@@ -11,8 +11,8 @@ $(document).ready(function(){
         
         $(".dropdown-menu li").click(function() {
             var $region = $(this).text();
-            var $node = document.querySelector("#dropdownMenu1").firstChild;
-            console.log($region);
+            var $node = $("#dropdownMenu1").contents().first()[0].nodeValue = $region + " ";
+
             if ($region) {
                 $(".table").find("td:not(:contains(" + $region + "))").parent().slideUp();
                 $(".table").find("td:contains(" + $region + ")").parent().slideDown();
@@ -24,7 +24,7 @@ $(document).ready(function(){
             var rowsTotal = $('.table tbody tr').length;
             console.log(rowsTotal);
             var numPages = rowsTotal/rowsShown;
-            for(i = 0;i < numPages;i++) {
+            for(i = 0; i < numPages; i++) {
                 var pageNum = i + 1;
                 $('#nav ul').append('<li><a href="#" rel="'+i+'">'+pageNum+'</a></li> ');
             }
