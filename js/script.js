@@ -22,11 +22,13 @@ $(document).ready(function(){
             var $node = $("#dropdownMenu1").contents().first()[0].nodeValue = $region + " ";
             
             if ($region) {
-                var rowNotShow = $(".table").find("td:not(:contains(" + $region + "))").parent().slideUp();
-                var rowShow = $(".table").find("td:contains(" + $region + ")").parent().slideDown();
+				console.log($region);
+                $(".table").find("td:not(:contains(" + $region + "))").parent().hide();
+				$(".table").find("td:not(:contains(" + $region + "))").parent().animate({opacity:1}, 300);
+                var rowShow = $(".table").find("td:contains(" + $region + ")").parent().show();
                 $rowsTotal = rowShow.length;
                 pagination($rowsTotal, $region)
-            }
+            } 
             
         });
         
@@ -92,17 +94,14 @@ $(document).ready(function(){
                 var endItem = startItem + rowsShown;
                 var regionRows = $('.table tbody tr').css('display');
 				
-				console.log($region);
-				
                 if ($region) {
-                    $(".table").find("td:contains(" + $region + ")").parent().css('opacity','0.0').hide().slice(startItem, endItem).css('display','table-row').animate({opacity:1}, 300);
 					console.log($region);
+					$(".table").find("td:not(:contains(" + $region + "))").parent().hide();
+                    $(".table").find("td:contains(" + $region + ")").parent().css('opacity','0.0').hide().slice(startItem, endItem).css('display','table-row').animate({opacity:1}, 300);
                 } else {
-//                    $('.table tbody tr').slideUp().slice(startItem, endItem).slideDown();
                     $('.table tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
                         css('display','table-row').animate({opacity:1}, 300);
                 }
-				console.log($region);
         });
     }
 });
