@@ -21,27 +21,17 @@ $(document).ready(function(){
             var $region = $(this).text();
             var $node = $("#dropdownMenu1").contents().first()[0].nodeValue = $region + " ";
             
-            
-            
             if ($region) {
                 var rowNotShow = $(".table").find("td:not(:contains(" + $region + "))").parent().slideUp();
                 var rowShow = $(".table").find("td:contains(" + $region + ")").parent().slideDown();
                 $rowsTotal = rowShow.length;
-                if ($region == "All Region") {
-                    $region = false;
-                    console.log($rowsTotal);
-                }
-                console.log($region);
                 pagination($rowsTotal, $region)
             }
-            
-            
             
         });
         
         
         pagination($rowsTotal);
-	   console.log($rowsTotal);
         
     }).fail(function() {
         console.log("error");
@@ -71,8 +61,8 @@ $(document).ready(function(){
 	}
 	
 	function pagination($rowsTotal, $region) {
-        console.log($rowsTotal);
-        $('#nav').remove();
+
+		$('#nav').remove();
         $('.table').after('<div id="nav"><ul class="pagination"></ul></div>');
             var rowsShown = 15;
             var rowsTotal = $rowsTotal;
@@ -84,8 +74,9 @@ $(document).ready(function(){
             }
         
             if ($region) {
-                $(".table").find("td:not(:contains(" + $region + "))").parent().slideUp();
-                $(".table").find("td:contains(" + $region + ")").parent().slice(0, rowsShown).slideDown();
+                $(".table").find("td:not(:contains(" + $region + "))").parent().hide();
+                $(".table").find("td:contains(" + $region + ")").parent().slice(0, rowsShown).show();
+				$('#nav a:first').addClass('active');
             } else {
                 $('.table tbody tr').hide();
                 $('.table tbody tr').slice(0, rowsShown).show();
@@ -99,15 +90,19 @@ $(document).ready(function(){
                 var currPage = $(this).attr('rel');
                 var startItem = currPage * rowsShown;
                 var endItem = startItem + rowsShown;
-                var regionRows = $(".table").find("td:not(:contains(" + $region + "))");
-
-                if ($region && $('.table tbody tr').css('display') == 'table-row') {
-                    $(".table").find("td:contains(" + $region + ")").parent().slideUp().slice(startItem, endItem).slideDown();
+                var regionRows = $('.table tbody tr').css('display');
+				
+				console.log($region);
+				
+                if ($region) {
+                    $(".table").find("td:contains(" + $region + ")").parent().css('opacity','0.0').hide().slice(startItem, endItem).css('display','table-row').animate({opacity:1}, 300);
+					console.log($region);
                 } else {
-                    $('.table tbody tr').slideUp().slice(startItem, endItem).slideDown();
-//                    $('.table tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
-//                        css('display','table-row').animate({opacity:1}, 300);
+//                    $('.table tbody tr').slideUp().slice(startItem, endItem).slideDown();
+                    $('.table tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+                        css('display','table-row').animate({opacity:1}, 300);
                 }
+				console.log($region);
         });
     }
 });
