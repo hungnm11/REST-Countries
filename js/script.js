@@ -78,8 +78,12 @@ $(document).ready(function(){
 			var pageNum = i + 1;
 			$('#nav ul').append('<li><a href="#" rel="'+i+'">'+pageNum+'</a></li> ');
 		}
-
+        
+        // Previous Button
 		$('#nav ul').prepend('<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
+        
+        // Next Button
+        $('#nav ul').append('<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
 		
 		if ($region) {
 			$(".table").find("td:not(:contains(" + $region + "))").parent().hide();
@@ -91,11 +95,18 @@ $(document).ready(function(){
 			$('#nav li:eq(1)').addClass('active');
 		}
 
-		$('#nav a').bind('click', function(){
-
+		$('#nav a').bind('click', function(e){
+            
+            var btnPrev = $(this).attr('aria-label');
+            
+            
 			$('#nav a').parent().removeClass('active');
 			$(this).parent().addClass('active');
-			
+			if (btnPrev == 'Previous') {
+                $('#nav li').removeClass('active');
+                $('#nav li:eq(1)').addClass('active');
+                return false;
+            }
 			var currPage = $(this).attr('rel');
 			var startItem = currPage * rowsShown;
 			var endItem = startItem + rowsShown;
