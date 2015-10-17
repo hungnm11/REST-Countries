@@ -97,38 +97,48 @@ $(document).ready(function(){
 
 		
 		$('#nav a').bind('click', function(e){
-			var that = $(this);
-			var btnPrev = that.parent().is(':first-child');
-			var btnNext = that.parent().is(':last-child');
+			var $this = $(this);
+			var btnPrev = $this.parent().is(':first-child');
+			var btnNext = $this.parent().is(':last-child');
 			var itemActive = $('#nav li.active');
-			
+			var childItemNext = itemActive.next('li').children('a').attr('rel');
+			var childItemPrev = itemActive.prev('li').children('a').attr('rel');
+
 			if (!btnNext && !btnPrev) {
-				goToPage(that, rowsShown, $region);
+				goToPage($this, rowsShown, $region);
 			}
 			
-			if (btnNext) {
+			if (btnNext && childItemNext < numPages) {
 				$('#nav li').removeClass('active');
 				itemActive.next('li').addClass('active');
+				console.log('Next = ' + childItemNext);
+				goToPage(childItemNext, rowsShown, $region);
 			}
 			
-			if (btnPrev) {
+			if (btnPrev && childItemPrev >= 0) {
 				$('#nav li').removeClass('active');
 				itemActive.prev('li').addClass('active');
+				console.log('Prev = ' + childItemPrev);
+				goToPage(childItemPrev, rowsShown, $region);
 			}
-			
-			console.log(btnPrev);
-			console.log(btnNext);
         });
     }
 	
-	function goToPage(that,rowsShown,$region) {
-		var currPage = that.attr('rel');
-		var startItem = currPage * rowsShown;
-		var endItem = startItem + rowsShown;
-
-		$('#nav a').parent().removeClass('active');
-		that.parent().addClass('active');
-
+	function goToPage($this, rowsShown, $region) {
+		var currPage;
+		var startItem;
+		var endItem;
+		
+		if (typeof($this) === 'object') {
+			currPage = $this.attr('rel');
+			$('#nav a').parent().removeClass('active');
+			$this.parent().addClass('active');
+		} else {
+			currPage = $this;
+		}
+		 
+		startItem = currPage * rowsShown;
+		endItem = startItem + rowsShown;
 
 		if ($region) {
 			$(".table").find("td:not(:contains(" + $region + "))").parent().hide();
