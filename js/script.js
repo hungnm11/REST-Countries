@@ -95,33 +95,58 @@ $(document).ready(function(){
 			$('#nav li:eq(1)').addClass('active');
 		}
 
+		
 		$('#nav a').bind('click', function(e){
-            
-            var btnPrev = $(this).attr('aria-label');
-            
-            
-			$('#nav a').parent().removeClass('active');
-			$(this).parent().addClass('active');
-			if (btnPrev == 'Previous') {
-                $('#nav li').removeClass('active');
-                $('#nav li:eq(1)').addClass('active');
-                return false;
-            }
-			var currPage = $(this).attr('rel');
-			var startItem = currPage * rowsShown;
-			var endItem = startItem + rowsShown;
-			var regionRows = $('.table tbody tr').css('display');
-
-			if ($region) {
-				console.log($region);
-				$(".table").find("td:not(:contains(" + $region + "))").parent().hide();
-				$(".table").find("td:contains(" + $region + ")").parent().css('opacity','0.0').hide().slice(startItem, endItem).css('display','table-row').animate({opacity:1}, 300);
-			} else {
-				$('.table tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
-					css('display','table-row').animate({opacity:1}, 300);
+			var that = $(this);
+			var btnPrev = that.parent().is(':first-child');
+			var btnNext = that.parent().is(':last-child');
+			var itemActive = $('#nav li.active');
+			
+			if (!btnNext && !btnPrev) {
+				goToPage(that, rowsShown, $region);
 			}
+			
+			if (btnNext) {
+				$('#nav li').removeClass('active');
+				itemActive.next('li').addClass('active');
+			}
+			
+			if (btnPrev) {
+				$('#nav li').removeClass('active');
+				itemActive.prev('li').addClass('active');
+			}
+			
+			console.log(btnPrev);
+			console.log(btnNext);
         });
     }
+	
+	function goToPage(that,rowsShown,$region) {
+		var currPage = that.attr('rel');
+		var startItem = currPage * rowsShown;
+		var endItem = startItem + rowsShown;
+
+		$('#nav a').parent().removeClass('active');
+		that.parent().addClass('active');
+
+
+		if ($region) {
+			$(".table").find("td:not(:contains(" + $region + "))").parent().hide();
+			$(".table").find("td:contains(" + $region + ")").parent().css('opacity','0.0').hide().slice(startItem, endItem).css('display','table-row').animate({opacity:1}, 300);
+		} else {
+			$('.table tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+				css('display','table-row').animate({opacity:1}, 300);
+		}
+		
+	}
+	
+	function nextPage() {
+		console.log('next');
+	}
+	
+	function prevPage() {
+		console.log('prev');
+	}
 });
 
 
