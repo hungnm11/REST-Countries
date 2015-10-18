@@ -95,8 +95,8 @@ $(document).ready(function(){
 			$('#nav li:eq(1)').addClass('active');
 		}
 
-		
 		$('#nav a').bind('click', function(e){
+			e.preventDefault();
 			var $this = $(this);
 			var btnPrev = $this.parent().is(':first-child');
 			var btnNext = $this.parent().is(':last-child');
@@ -111,14 +111,12 @@ $(document).ready(function(){
 			if (btnNext && childItemNext < numPages) {
 				$('#nav li').removeClass('active');
 				itemActive.next('li').addClass('active');
-				console.log('Next = ' + childItemNext);
 				goToPage(childItemNext, rowsShown, $region);
 			}
 			
 			if (btnPrev && childItemPrev >= 0) {
 				$('#nav li').removeClass('active');
 				itemActive.prev('li').addClass('active');
-				console.log('Prev = ' + childItemPrev);
 				goToPage(childItemPrev, rowsShown, $region);
 			}
         });

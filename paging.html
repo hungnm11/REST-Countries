@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>REST Countries</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	  <style>
+		  .paging a {
+		  	padding: 5px 10px;
+		  }
+		  .paging li.active {
+			  background: red;
+			  display: inline-block;
+			  color: #fff;
+		  }
+		  .paging li{
+			  list-style: none;
+			  display: inline-block;
+			  color: #000;
+		  }
+		  
+		  .paging li.active a {
+			  color: #fff;
+		  }
+	  </style>
+  </head>
+  <body>
+
+	  <div class="paging">
+	  
+		  <ul>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+			  <li><a href="">1</a></li>
+		  </ul>
+	  	
+	  </div>
+	  
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	  <script src="js/jquery.simplePagination.js"></script>
+	  <script>
+//	  	$(document).ready(function() {
+//			
+//			var currentPage = 0;
+//			var startItem;
+//			var endItem;
+//			var rows = 2;
+//			var totalRow = 20;
+//			var numPage = totalRow/rows;
+//			var limitItem = 3;
+//			
+//			startItem = currentPage * rows;
+//			endItem = startItem + rows;
+//			
+//			
+//			function paging(currentPage, numPage) {
+//				
+//				var $ul = $('<ul>');
+//				var $div = $('.paging').append($ul);
+//				
+//				for (var i = currentPage; i < currentPage+3; i++) {
+//					var numPage = i + 1;
+//					$ul.append('<li><a href="" rel="'+ i +'">'+ numPage +'</a></li>');
+//				}
+//				
+//				if (currentPage == 0) {
+//					$('.paging li:first').addClass('active');
+//				}
+//				
+//				
+//				
+//				
+//				
+//			}
+//			$('.paging').prepend('<a href="" class="prev">prev</a>');
+//			$('.paging').append('<a href="" class="next">next</a>');
+//			
+//			$('.next').bind('click', function(e){
+//				e.preventDefault();
+//				var $li = $('.paging li.active');
+//				var $liActiveNext = $li.next('li').children('a').attr('rel');
+//				console.log($liActiveNext);
+//				
+//				if (currentPage + 3 <= numPage - 1 ) {
+//					currentPage = currentPage + 1;
+//					$('.paging ul').remove();
+//					paging(currentPage, numPage);
+//				} else {
+//					return false;
+//				}
+//				
+//			});
+//			
+//			$('.prev').bind('click', function(e){
+//				e.preventDefault();
+//				currentPage = currentPage - 1;
+//				if ( currentPage >= 0 ) {
+//					$('.paging ul').remove();
+//					paging(currentPage, numPage);
+//				} else {
+//					currentPage = 0;
+//				}
+//			});
+//			
+//			paging(currentPage, numPage);
+//		});
+		  $(function() {
+    $('.paging ul').pagination({
+        items: 100,
+        itemsOnPage: 10,
+        cssStyle: 'light-theme'
+    });
+});
+		  
+	  </script>
+  </body>
+</html>
