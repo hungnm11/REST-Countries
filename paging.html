@@ -39,105 +39,43 @@
   </head>
   <body>
 
-	  <div class="paging">
-	  
-		  <ul>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-			  <li><a href="">1</a></li>
-		  </ul>
-	  	
-	  </div>
+	  <div class="paging"></div>
 	  
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-	  <script src="js/jquery.simplePagination.js"></script>
+	  
 	  <script>
-//	  	$(document).ready(function() {
-//			
-//			var currentPage = 0;
-//			var startItem;
-//			var endItem;
-//			var rows = 2;
-//			var totalRow = 20;
-//			var numPage = totalRow/rows;
-//			var limitItem = 3;
-//			
-//			startItem = currentPage * rows;
-//			endItem = startItem + rows;
-//			
-//			
-//			function paging(currentPage, numPage) {
-//				
-//				var $ul = $('<ul>');
-//				var $div = $('.paging').append($ul);
-//				
-//				for (var i = currentPage; i < currentPage+3; i++) {
-//					var numPage = i + 1;
-//					$ul.append('<li><a href="" rel="'+ i +'">'+ numPage +'</a></li>');
-//				}
-//				
-//				if (currentPage == 0) {
-//					$('.paging li:first').addClass('active');
-//				}
-//				
-//				
-//				
-//				
-//				
-//			}
-//			$('.paging').prepend('<a href="" class="prev">prev</a>');
-//			$('.paging').append('<a href="" class="next">next</a>');
-//			
-//			$('.next').bind('click', function(e){
-//				e.preventDefault();
-//				var $li = $('.paging li.active');
-//				var $liActiveNext = $li.next('li').children('a').attr('rel');
-//				console.log($liActiveNext);
-//				
-//				if (currentPage + 3 <= numPage - 1 ) {
-//					currentPage = currentPage + 1;
-//					$('.paging ul').remove();
-//					paging(currentPage, numPage);
-//				} else {
-//					return false;
-//				}
-//				
-//			});
-//			
-//			$('.prev').bind('click', function(e){
-//				e.preventDefault();
-//				currentPage = currentPage - 1;
-//				if ( currentPage >= 0 ) {
-//					$('.paging ul').remove();
-//					paging(currentPage, numPage);
-//				} else {
-//					currentPage = 0;
-//				}
-//			});
-//			
-//			paging(currentPage, numPage);
-//		});
-		  $(function() {
-    $('.paging ul').pagination({
-        items: 100,
-        itemsOnPage: 10,
-        cssStyle: 'light-theme'
-    });
-});
-		  
+	  	$(document).ready(function() {
+			
+			var currentPage = 0;
+			var pageInRange = 5;
+			var distance = pageInRange/2;
+			var totalRow = 100;
+			var limitItem = 5;
+			var totalPage = totalRow/limitItem;
+			var startItem;
+			var endItem;
+			
+			startItem = (currentPage - distance) > 0 ? (currentPage - distance) : 0;
+			
+			endItem = (startItem + pageInRange) < totalPage ? (startItem + pageInRange) : totalPage;
+			
+			if (endItem -startItem <= pageInRange) {
+				startItem = (endItem -pageInRange) > 0 ? (endItem - pageInRange) : 0;
+			}
+			
+			var $ul = $('<ul>');
+			var $div = $('.paging').append($ul);
+			for (var i = startItem; i < endItem; i++) {
+				var numPage = i + 1;
+				$div.append('<li><a href="" rel="'+ i +'">'+ numPage +'</a></li>');
+			}
+			
+		});
+	
 	  </script>
   </body>
 </html>
